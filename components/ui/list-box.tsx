@@ -69,7 +69,7 @@ const ListBoxItem = <T extends object>({
               <Check className="size-3 text-black" />
             </span>
           )}
-          <span className="pl-1">{children}</span>
+          <span className={renderProps.isSelected ? "pl-6" : "pl-1"}>{children}</span>
         </>
       ))}
     </AriaListBoxItem>

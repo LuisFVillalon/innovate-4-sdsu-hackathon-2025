@@ -5,11 +5,11 @@ import { Input } from "@/components/ui/input"
 import { useImageUpload } from "@/components/hooks/use-image-upload"
 import { ImagePlus, X, Upload, Trash2 } from "lucide-react"
 import Image from "next/image"
-import { useCallback, useState } from "react"
+import { useCallback, useState, ReactNode } from "react"
 import { cn } from "@/lib/utils"
 
 interface ImageUploadProps {
-  label?: string
+  label?: string | ReactNode
   description?: string
   onUpload?: (url: string, file: File) => void
   onRemove?: () => void

@@ -33,6 +33,23 @@ export default function NewReport() {
   const [contactPhone, setContactPhone] = useState<string>("")
   const [location, setLocation] = useState<string>("")
 
+  // Generate random license plate number
+  const generateRandomLicensePlate = useCallback((): string => {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const numbers = "0123456789"
+    
+    // Format: 1 number + 3 letters + 3 numbers (e.g., "1ABC234")
+    const num1 = numbers[Math.floor(Math.random() * numbers.length)]
+    const letter1 = letters[Math.floor(Math.random() * letters.length)]
+    const letter2 = letters[Math.floor(Math.random() * letters.length)]
+    const letter3 = letters[Math.floor(Math.random() * letters.length)]
+    const num2 = numbers[Math.floor(Math.random() * numbers.length)]
+    const num3 = numbers[Math.floor(Math.random() * numbers.length)]
+    const num4 = numbers[Math.floor(Math.random() * numbers.length)]
+    
+    return `${num1}${letter1}${letter2}${letter3}${num2}${num3}${num4}`
+  }, [])
+
   // Extract timestamp from image metadata
   const extractTimestampFromFile = useCallback((file: File): string => {
     // Try to get timestamp from file metadata
@@ -50,13 +67,16 @@ export default function NewReport() {
     (url: string, file: File) => {
       setLicensePlateImage(url)
       setLicensePlateFile(file)
+      // Auto-populate random license plate number
+      const randomPlate = generateRandomLicensePlate()
+      setLicensePlateNumber(randomPlate)
       // Auto-populate timestamp from file metadata if not already set
       if (!timestamp) {
         const extractedTimestamp = extractTimestampFromFile(file)
         setTimestamp(extractedTimestamp)
       }
     },
-    [timestamp, extractTimestampFromFile]
+    [timestamp, extractTimestampFromFile, generateRandomLicensePlate]
   )
 
   const handleDamageImageUpload = useCallback(
@@ -130,17 +150,17 @@ export default function NewReport() {
         <div className="w-full space-y-6 sm:space-y-8">
           <div className="space-y-2">
             <h1 className="text-2xl sm:text-3xl font-semibold leading-tight tracking-tight text-black">
-              New Hit and Run Report
+              File an Incident
             </h1>
             <p className="text-base sm:text-lg leading-7 sm:leading-8 text-black">
-              Please fill out the form below to report a hit and run incident.
+              Please fill out the form below to report an incident.
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="w-full space-y-5 sm:space-y-6">
             {/* 1. Incident Type */}
             <div className="space-y-2">
-              <Label htmlFor="incident-type">Incident Type</Label>
+              <Label htmlFor="incident-type">Incident Type <span className="text-red-500">*</span></Label>
               <Select
                 selectedKey={incidentType}
                 onSelectionChange={(key) => setIncidentType(key as string)}
@@ -161,20 +181,51 @@ export default function NewReport() {
 
             {/* 2. License Plate Photo */}
             <div className="space-y-2">
-              <ImageUpload
-                label="Upload a picture of the victim's license plate"
-                description="Supported formats: JPG, PNG, GIF"
-                onUpload={handleLicensePlateUpload}
-                onRemove={() => {
-                  setLicensePlateImage(null)
-                  setLicensePlateFile(null)
-                  setLicensePlateNumber("")
-                }}
-                value={licensePlateImage}
-              />
+              <Label>
+                Upload a picture of the victim's license plate <span className="text-red-500">*</span>
+              </Label>
+              <p className="text-sm text-black">
+                Supported formats: JPG, PNG, HEIC
+              </p>
+              {licensePlateImage ? (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="relative group">
+                      <div className="relative h-48 rounded-lg border overflow-hidden">
+                        <img
+                          src={licensePlateImage}
+                          alt="License plate"
+                          className="w-full h-full object-contain"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setLicensePlateImage(null)
+                            setLicensePlateFile(null)
+                            setLicensePlateNumber("")
+                          }}
+                          className="absolute top-2 right-2 p-2 bg-white/90 hover:bg-white border border-gray-300 text-red-600 rounded-full shadow-lg transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+                        >
+                          <X className="h-5 w-5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <ImageUpload
+                  onUpload={handleLicensePlateUpload}
+                  onRemove={() => {
+                    setLicensePlateImage(null)
+                    setLicensePlateFile(null)
+                    setLicensePlateNumber("")
+                  }}
+                  accept="image/*,.heic,.heif"
+                />
+              )}
               {licensePlateImage && (
                 <div className="space-y-2">
-                  <Label htmlFor="license-plate-number">License Plate Number</Label>
+                  <Label htmlFor="license-plate-number">License Plate Number <span className="text-red-500">*</span></Label>
                   <Input
                     id="license-plate-number"
                     type="text"
@@ -189,9 +240,9 @@ export default function NewReport() {
 
             {/* 3. Damage Photos */}
             <div className="space-y-2">
-              <Label>Upload pictures related to accident</Label>
+              <Label>Upload pictures related to accident <span className="text-red-500">*</span></Label>
               <p className="text-sm text-black">
-                Maximum 3 images. You can select or drag and drop multiple images at once. Supported formats: JPG, PNG, GIF
+                Maximum 3 images. You can select or drag and drop multiple images at once. Supported formats: JPG, PNG, HEIC
               </p>
               {damageImages.length === 0 ? (
                 <ImageUpload
@@ -201,6 +252,7 @@ export default function NewReport() {
                     setDamageFiles([])
                   }}
                   multiple={true}
+                  accept="image/*,.heic,.heif"
                 />
               ) : (
                 <div className="space-y-4">
@@ -221,9 +273,9 @@ export default function NewReport() {
                               setDamageImages(newImages)
                               setDamageFiles(newFiles)
                             }}
-                            className="absolute top-2 right-2 p-1 bg-destructive text-destructive-foreground rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute top-2 right-2 p-2 bg-white/90 hover:bg-white border border-gray-300 text-red-600 rounded-full shadow-lg transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                           >
-                            <X className="h-4 w-4" />
+                            <X className="h-5 w-5" />
                           </button>
                         </div>
                       </div>
@@ -234,6 +286,7 @@ export default function NewReport() {
                       onUpload={handleDamageImageUpload}
                       onRemove={() => {}}
                       multiple={true}
+                      accept="image/*,.heic,.heif"
                     />
                   )}
                   {damageImages.length >= 3 && (
@@ -247,7 +300,7 @@ export default function NewReport() {
 
             {/* 4. Timestamp */}
             <div className="space-y-2">
-              <Label htmlFor="timestamp">Timestamp</Label>
+              <Label htmlFor="timestamp">Timestamp <span className="text-red-500">*</span></Label>
               <div className="relative">
                 <Input
                   id="timestamp"
@@ -304,13 +357,13 @@ export default function NewReport() {
                 />
               </div>
               <p className="text-xs text-black">
-                Timestamp is extrated automatically. You can edit if needed.
+                Timestamp is extracted automatically. You can edit if needed.
               </p>
             </div>
 
             {/* 5. Location */}
             <div className="space-y-2">
-              <Label htmlFor="location">Location</Label>
+              <Label htmlFor="location">Location <span className="text-red-500">*</span></Label>
               <Select
                 selectedKey={location}
                 onSelectionChange={(key) => setLocation(key as string)}
@@ -338,7 +391,7 @@ export default function NewReport() {
               </Label>
               <Textarea
                 id="description"
-                placeholder="Describe the incident in as much detail as possible..."
+                placeholder="Describe the incident..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={6}
@@ -359,7 +412,7 @@ export default function NewReport() {
               {showContactInfo && (
                 <div className="ml-0 sm:ml-6 space-y-4 border-l-0 sm:border-l-2 border-muted pl-0 sm:pl-4">
                   <div className="space-y-2">
-                    <Label htmlFor="contact-name">Name</Label>
+                    <Label htmlFor="contact-name">Name <span className="text-red-500">*</span></Label>
                     <Input
                       id="contact-name"
                       type="text"
@@ -370,7 +423,7 @@ export default function NewReport() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="contact-email">Email <span className="text-xs text-black opacity-70">Optional</span></Label>
+                    <Label htmlFor="contact-email">Email</Label>
                     <Input
                       id="contact-email"
                       type="email"
@@ -381,7 +434,7 @@ export default function NewReport() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="contact-phone">Phone <span className="text-xs text-black opacity-70">Optional</span>  </Label>
+                    <Label htmlFor="contact-phone">Phone</Label>
                     <Input
                       id="contact-phone"
                       type="tel"
