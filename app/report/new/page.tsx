@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
+import { useRouter } from "next/navigation"
 import { X } from "lucide-react"
 import { Button } from "@/components/ui/3d-button"
 import { Input } from "@/components/ui/input"
@@ -18,6 +19,8 @@ import {
 import { Checkbox } from "@/components/ui/checkbox"
 
 export default function NewReport() {
+  const router = useRouter()
+  
   // Form state
   const [incidentType, setIncidentType] = useState<string>("")
   const [licensePlateImage, setLicensePlateImage] = useState<string | null>(null)
@@ -33,21 +36,10 @@ export default function NewReport() {
   const [contactPhone, setContactPhone] = useState<string>("")
   const [location, setLocation] = useState<string>("")
 
-  // Generate random license plate number
+  // Generate license plate number (fixed value)
   const generateRandomLicensePlate = useCallback((): string => {
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    const numbers = "0123456789"
-    
-    // Format: 1 number + 3 letters + 3 numbers (e.g., "1ABC234")
-    const num1 = numbers[Math.floor(Math.random() * numbers.length)]
-    const letter1 = letters[Math.floor(Math.random() * letters.length)]
-    const letter2 = letters[Math.floor(Math.random() * letters.length)]
-    const letter3 = letters[Math.floor(Math.random() * letters.length)]
-    const num2 = numbers[Math.floor(Math.random() * numbers.length)]
-    const num3 = numbers[Math.floor(Math.random() * numbers.length)]
-    const num4 = numbers[Math.floor(Math.random() * numbers.length)]
-    
-    return `${num1}${letter1}${letter2}${letter3}${num2}${num3}${num4}`
+    // Return the same license plate each time
+    return "9CYS740"
   }, [])
 
   // Extract timestamp from image metadata
@@ -106,10 +98,12 @@ export default function NewReport() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
+    
+    // Log form data (for debugging/backend submission)
     console.log({
       incidentType,
       licensePlateImage,
+      licensePlateNumber,
       damageImages,
       timestamp,
       description,
@@ -119,6 +113,9 @@ export default function NewReport() {
       contactPhone,
       location,
     })
+    
+    // Navigate to confirmation page
+    router.push("/report/confirm")
   }
 
   // Parking lot options - you can customize these
