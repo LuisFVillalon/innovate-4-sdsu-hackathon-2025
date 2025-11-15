@@ -2,7 +2,7 @@
 
 import styles from './page.module.css'
 
-// import Link from "next/link"
+import Link from "next/link";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 
@@ -17,6 +17,11 @@ export default function Home() {
 
   return (
     <div className={styles.mainWrapper}>
+          <div className="text-xl text-[#000000] underline absolute top-4 right-4">
+            <Link href="/account">
+              Sign In
+            </Link>
+          </div>
           <div className='mx-[5%] flex flex-col gap-6 justify-center items-center'>
             <div className={`${styles.fadeIn} text-center text-[#A6192E] text-8xl font-bold`}>
               The Crash App
@@ -33,8 +38,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-
-            { reportInput ?
+          { reportInput ?
               <div className="flex flex-col gap-8 justify-center items-center">
                 <Button  
                   className={`bg-gray-900 border-gray-600
@@ -42,7 +46,7 @@ export default function Home() {
                   onClick={() => setReportInput(false)}>
                     Go Back
                 </Button>
-                <div className='px-10 py-6 text-xl flex mt-0'>
+                <div className='flex gap-2 px-10 py-6 text-xl flex mt-0'>
                   <Input
                     type="text"
                     placeholder="Enter your ID Report"
@@ -72,7 +76,7 @@ export default function Home() {
                   </Button>
                 </div>
               </div>
-            }
+          }
     </div>
   );
 }
