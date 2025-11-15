@@ -22,7 +22,15 @@ export default function Home() {
               The Crash App
             </div>
             <div className={`${styles.fadeIn} text-center text-2xl text-[#000000]`}>
-              See a crash. Report a crash. Get paid.
+              <p>
+                  See a crash.
+              </p>
+              <p>
+                Report a crash.
+              </p>
+              <p>
+                Get paid.
+              </p>
             </div>
           </div>
 
