@@ -185,7 +185,7 @@ export default function NewReport() {
                 Upload a picture of the victim's license plate <span className="text-red-500">*</span>
               </Label>
               <p className="text-sm text-black">
-                Supported formats: JPG, PNG, HEIC
+                Supported formats: JPG, PNG
               </p>
               {licensePlateImage ? (
                 <div className="space-y-4">
@@ -220,7 +220,7 @@ export default function NewReport() {
                     setLicensePlateFile(null)
                     setLicensePlateNumber("")
                   }}
-                  accept="image/*,.heic,.heif"
+                  accept="image/*"
                 />
               )}
               {licensePlateImage && (
@@ -242,7 +242,7 @@ export default function NewReport() {
             <div className="space-y-2">
               <Label>Upload pictures related to accident <span className="text-red-500">*</span></Label>
               <p className="text-sm text-black">
-                Maximum 3 images. You can select or drag and drop multiple images at once. Supported formats: JPG, PNG, HEIC
+                Maximum 3 images. You can select or drag and drop multiple images at once. Supported formats: JPG, PNG
               </p>
               {damageImages.length === 0 ? (
                 <ImageUpload
@@ -252,7 +252,7 @@ export default function NewReport() {
                     setDamageFiles([])
                   }}
                   multiple={true}
-                  accept="image/*,.heic,.heif"
+                  accept="image/*"
                 />
               ) : (
                 <div className="space-y-4">
@@ -286,7 +286,7 @@ export default function NewReport() {
                       onUpload={handleDamageImageUpload}
                       onRemove={() => {}}
                       multiple={true}
-                      accept="image/*,.heic,.heif"
+                      accept="image/*"
                     />
                   )}
                   {damageImages.length >= 3 && (

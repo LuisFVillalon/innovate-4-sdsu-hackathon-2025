@@ -132,27 +132,86 @@ export function ImageUpload({
       {description && (
         <p className="text-sm text-black">{description}</p>
       )}
-      <div className="w-full space-y-2 rounded-xl border border-gray-300 bg-white p-4 shadow-sm">
+      <div className="w-full space-y-2 rounded-xl border border-gray-300 bg-white p-4 shadow-sm relative">
         <Input
           type="file"
           accept={accept}
-          className="hidden"
           ref={fileInputRef}
           onChange={handleFileChange}
           multiple={multiple}
-          capture="environment"
+          style={{ 
+            position: 'fixed', 
+            top: '50vh', 
+            left: '50vw', 
+            transform: 'translate(-50%, -50%)', 
+            opacity: 0, 
+            width: '1px', 
+            height: '1px', 
+            zIndex: 9999,
+            pointerEvents: 'none',
+            margin: 0,
+            padding: 0
+          }}
         />
         {!displayUrl ? (
           <div
-            onClick={handleThumbnailClick}
+            onTouchStart={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+            }}
+            onTouchEnd={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              // Use requestAnimationFrame to ensure positioning is correct
+              requestAnimationFrame(() => {
+                if (fileInputRef.current) {
+                  // Ensure input is at viewport center
+                  const vw = window.innerWidth / 2
+                  const vh = window.innerHeight / 2
+                  fileInputRef.current.style.left = `${vw}px`
+                  fileInputRef.current.style.top = `${vh}px`
+                  fileInputRef.current.style.pointerEvents = 'auto'
+                  fileInputRef.current.click()
+                  // Reset after a brief delay
+                  setTimeout(() => {
+                    if (fileInputRef.current) {
+                      fileInputRef.current.style.pointerEvents = 'none'
+                    }
+                  }, 100)
+                }
+              })
+            }}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              // Use requestAnimationFrame to ensure positioning is correct
+              requestAnimationFrame(() => {
+                if (fileInputRef.current) {
+                  // Ensure input is at viewport center
+                  const vw = window.innerWidth / 2
+                  const vh = window.innerHeight / 2
+                  fileInputRef.current.style.left = `${vw}px`
+                  fileInputRef.current.style.top = `${vh}px`
+                  fileInputRef.current.style.pointerEvents = 'auto'
+                  fileInputRef.current.click()
+                  // Reset after a brief delay
+                  setTimeout(() => {
+                    if (fileInputRef.current) {
+                      fileInputRef.current.style.pointerEvents = 'none'
+                    }
+                  }, 100)
+                }
+              })
+            }}
             onDragOver={handleDragOver}
             onDragEnter={handleDragEnter}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
             className={cn(
-              "flex h-64 cursor-pointer flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-gray-300 bg-white transition-colors hover:bg-gray-50",
+              "flex h-64 cursor-pointer flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-gray-300 bg-white transition-colors hover:bg-gray-50 touch-manipulation",
               isDragging && "border-gray-400 bg-gray-100"
             )}
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <div className="rounded-full bg-gray-100 p-3 shadow-sm">
               <ImagePlus className="h-6 w-6 text-gray-600" />
