@@ -17,36 +17,51 @@ export default function Home() {
 
   return (
     <div className={styles.mainWrapper}>
-          <div className={`${styles.fadeIn} text-[#A6192E] text-4xl font-bold`}>
-            The Crash App
+          <div className='mx-[5%] flex flex-col gap-6 justify-center items-center'>
+            <div className={`${styles.fadeIn} text-center text-[#A6192E] text-8xl font-bold`}>
+              The Crash App
+            </div>
+            <div className={`${styles.fadeIn} text-center text-2xl text-[#000000]`}>
+              See a crash. Report a crash. Get paid.
+            </div>
           </div>
+
             { reportInput ?
               <div className="flex flex-col gap-8 justify-center items-center">
                 <Button  
-                  className={styles.fadeInLeft} 
+                  className={`bg-gray-900 border-gray-600
+                   border-b-gray-500 px-10 py-6 text-xl text-white ${styles.fadeInLeft}`} 
                   onClick={() => setReportInput(false)}>
                     Go Back
                 </Button>
-                <div className='flex mt-0'>
+                <div className='px-10 py-6 text-xl flex mt-0'>
                   <Input
                     type="text"
                     placeholder="Enter your ID Report"
-                    className={`placeholder-[#FFFFFF] ${styles.fadeInRight}`}
+                    className={`text-xl placeholder-[#FFFFFF] ${styles.fadeInRight}`}
                   />
                   <Button  
-                    className={`bg-[#A6192E] ${styles.fadeInRight}`} 
+                    className={`bg-gray-900 border-gray-600
+                   border-b-gray-500 ${styles.fadeInRight}`} 
                   >
-                      <ChevronRight className="bg-[#A6192E] w-5 h-5 text-white" />
+                      <ChevronRight className="w-5 h-5 text-white" />
                   </Button>
                 </div>
               </div>
               :
               <div className="flex flex-col gap-8 justify-center items-center">
-                <div className={styles.fadeInLeft}>
-                  <Button>Create a Report</Button>
+                <div className={`text-white w-full ${styles.fadeInLeft}`}>
+                  <Button className="w-full bg-gray-900 border-gray-600
+                   border-b-gray-500 px-10 py-6 text-xl">Create a Report</Button>
                 </div>
-                <div className={styles.fadeInRight}>
-                  <Button onClick={() => setReportInput(true)}>Get a Report</Button>
+                <div className={`text-white w-full ${styles.fadeInRight}`}>
+                  <Button 
+                    className="w-full bg-gray-900 border-gray-600
+                   border-b-gray-500 px-10 py-6 text-xl"
+                    onClick={() => setReportInput(true)}
+                  >
+                    Get a Report
+                  </Button>
                 </div>
               </div>
             }
