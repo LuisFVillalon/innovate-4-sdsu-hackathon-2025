@@ -1,8 +1,9 @@
 'use client';
 
 import Image from "next/image";
-import { User, Coins } from "lucide-react";
+import { Coins } from "lucide-react";
 import styles from "../page.module.css";
+import ProfileDropdown from "@/components/ProfileDropdown";
 
 export default function PrizePage() {
   const prizes = [
@@ -18,10 +19,10 @@ export default function PrizePage() {
     <div className={`${styles.mainWrapper} relative min-h-screen bg-white`}>
       {/* Top right coin + profile */}
       <div className="absolute top-6 right-6">
-        <div className="flex gap-3 items-center">
-          <p className="text-black text-lg font-semibold">3,789</p>
+        <div className="flex gap-2 justify-center items-center">
+          <p className="text-[#000000]">3,789</p>
           <Coins className="w-6 h-6 text-yellow-400" />
-          <User className="w-6 h-6 text-black" />
+          <ProfileDropdown />
         </div>
       </div>
 
