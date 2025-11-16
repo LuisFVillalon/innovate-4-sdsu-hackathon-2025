@@ -35,7 +35,7 @@ export default function Home() {
             </div>
           </div>
           { reportInput ?
-              <div className="pt-[10%] flex flex-col gap-8 justify-center items-center">
+              <div className="pt-[5%] md:pt-[10%] flex flex-col gap-8 justify-center items-center">
                 <Button  
                   className={`bg-gray-900 border-gray-600
                    border-b-gray-500 px-10 py-6 text-xl text-white ${styles.fadeInLeft}`} 
@@ -57,10 +57,15 @@ export default function Home() {
                 </div>
               </div>
               :
-              <div className="pt-[10%] flex flex-col gap-8 justify-center items-center">
+              <div className="pt-[5%] md:pt-[10%] flex flex-col gap-8 justify-center items-center">
                 <div className={`text-white w-full ${styles.fadeInLeft}`}>
-                  <Button className="w-full bg-gray-900 border-gray-600
-                   border-b-gray-500 px-10 py-6 text-xl">Create a Report</Button>
+                    <Link href="/report/new">
+                      <Button className="w-full bg-gray-900 border-gray-600
+                       border-b-gray-500 px-10 py-6 text-xl"
+                      >
+                        Create a Report
+                      </Button>
+                    </Link>
                 </div>
                 <div className={`text-white w-full ${styles.fadeInRight}`}>
                   <Button 

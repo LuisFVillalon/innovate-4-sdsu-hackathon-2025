@@ -63,8 +63,13 @@ export default function Home() {
               :
               <div className="flex flex-col gap-8 justify-center items-center">
                 <div className={`text-white w-full ${styles.fadeInLeft}`}>
-                  <Button className="w-full bg-gray-900 border-gray-600
-                   border-b-gray-500 px-10 py-6 text-xl">Create a Report</Button>
+                  <Link href="/report/new">
+                    <Button className="w-full bg-gray-900 border-gray-600
+                       border-b-gray-500 px-10 py-6 text-xl"
+                      >
+                        Create a Report
+                      </Button>
+                  </Link>
                 </div>
                 <div className={`text-white w-full ${styles.fadeInRight}`}>
                   <Button 
