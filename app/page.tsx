@@ -5,8 +5,8 @@ import styles from './page.module.css'
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-
 
 
 import { Button } from "./components/ui/3d-button"
@@ -14,7 +14,16 @@ import { Input } from "./components/ui/input"
 
 
 export default function Home() {
-  const [reportInput, setReportInput] = useState(false); // 0 is the initial value
+  const [reportInput, setReportInput] = useState(false);
+  const [reportId, setReportId] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (reportId.trim()) {
+      router.push(`/report/${reportId.trim()}`);
+    }
+  };
 
   return (
     <div className={styles.mainWrapper}>
@@ -62,19 +71,22 @@ export default function Home() {
                   onClick={() => setReportInput(false)}>
                     Go Back
                 </Button>
-                <div className='flex gap-2 px-10 py-6 text-xl flex mt-0'>
+                <form onSubmit={handleSubmit} className='flex gap-2 px-10 py-6 text-xl flex mt-0'>
                   <Input
                     type="text"
                     placeholder="Enter your ID Report"
+                    value={reportId}
+                    onChange={(e) => setReportId(e.target.value)}
                     className={`text-xl placeholder-[#FFFFFF] ${styles.fadeInRight}`}
                   />
                   <Button  
+                    type="submit"
                     className={`bg-gray-900 border-gray-600
                    border-b-gray-500 ${styles.fadeInRight}`} 
                   >
-                      <ChevronRight className="w-5 h-5 text-white" />
+                    <ChevronRight className="w-5 h-5 text-white" />
                   </Button>
-                </div>
+                </form>
               </div>
               :
               <div className="flex flex-col gap-8 justify-center items-center">

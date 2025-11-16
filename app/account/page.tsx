@@ -1,10 +1,12 @@
 'use client';
-
+//TODO change license plate search from id to license plate
+//
 import styles from '../page.module.css'
 
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronRight, Coins } from "lucide-react";
 import ProfileDropdown from "@/components/ProfileDropdown";
 
@@ -13,7 +15,16 @@ import { Input } from "../components/ui/input"
 
 
 export default function Home() {
-  const [reportInput, setReportInput] = useState(false); // 0 is the initial value
+  const [reportInput, setReportInput] = useState(false);
+  const [reportId, setReportId] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (reportId.trim()) {
+      router.push(`/report/${reportId.trim()}`);
+    }
+  };
 
   return (
     <div className={styles.mainWrapper}>
@@ -40,7 +51,7 @@ export default function Home() {
           <div className='mx-[50%] flex flex-col gap-2 justify-center items-center'>
             <div className={`w-full ${styles.fadeIn} text-start text-2xl text-[#000000]`}>
               <p>
-                  Hi Luis, welcome to
+                  Hi Michael, welcome to
               </p>
             </div>
             <div className={`${styles.fadeIn} text-start text-[#A6192E] text-8xl font-bold`}>
@@ -55,19 +66,22 @@ export default function Home() {
                   onClick={() => setReportInput(false)}>
                     Go Back
                 </Button>
-                <div className='flex gap-2 px-10 py-6 text-xl flex mt-0'>
+                <form onSubmit={handleSubmit} className='flex gap-2 px-10 py-6 text-xl flex mt-0'>
                   <Input
                     type="text"
                     placeholder="Enter your ID Report"
+                    value={reportId}
+                    onChange={(e) => setReportId(e.target.value)}
                     className={`text-xl placeholder-[#FFFFFF] ${styles.fadeInRight}`}
                   />
                   <Button  
+                    type="submit"
                     className={`bg-gray-900 border-gray-600
                    border-b-gray-500 ${styles.fadeInRight}`} 
                   >
-                      <ChevronRight className="w-5 h-5 text-white" />
+                    <ChevronRight className="w-5 h-5 text-white" />
                   </Button>
-                </div>
+                </form>
               </div>
               :
               <div className="pt-[5%] md:pt-[10%] flex flex-col gap-8 justify-center items-center">
