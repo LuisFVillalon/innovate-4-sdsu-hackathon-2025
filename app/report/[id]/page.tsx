@@ -76,9 +76,8 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
           <div className="border-b-2 border-gray-200 pb-4">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <h1 className="text-4xl font-bold text-[#A6192E]">
-                Crash App Report For Plate: <span className="text-gray-600">#{report.licensePlate}</span>
+                Crash Report For Plate: <span className="text-gray-600">#{report.licensePlate}</span>
               </h1>
-              <DownloadButton />
             </div>
           </div>
 
@@ -132,6 +131,10 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
               </div>
             </div>
           )}
+
+          <div className="flex justify-start pt-6">
+            <DownloadButton />
+          </div>
         </div>
       </div>
     </div>
