@@ -32,10 +32,10 @@ export default function ProfileDropdown() {
   };
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative flex items-center" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="cursor-pointer hover:opacity-80 transition-opacity"
+        className="cursor-pointer hover:opacity-80 transition-opacity flex items-center"
         aria-label="Profile menu"
       >
         <User className="w-6 h-6 text-[#000000]" />
