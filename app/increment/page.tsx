@@ -41,7 +41,7 @@ export default function Home() {
           <div className='mx-[50%] flex flex-col gap-2 justify-center items-center'>
             <div className={`w-full ${styles.fadeIn} text-start text-2xl text-[#000000]`}>
               <p>
-                  Hi Luis, welcome to
+                  Hi Michael, welcome to
               </p>
             </div>
             <div className={`${styles.fadeIn} text-start text-[#A6192E] text-8xl font-bold`}>
