@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react"
 import { useRouter } from "next/navigation"
-import { X } from "lucide-react"
+import { X, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/3d-button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -241,13 +241,24 @@ export default function NewReport() {
     <div className="flex min-h-screen items-center justify-center bg-white font-sans">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-start py-8 px-4 sm:py-16 sm:px-8 bg-white">
         <div className="w-full space-y-6 sm:space-y-8">
-          <div className="space-y-2">
-            <h1 className="text-2xl sm:text-3xl font-semibold leading-tight tracking-tight text-black">
-              File an Incident
-            </h1>
-            <p className="text-base sm:text-lg leading-7 sm:leading-8 text-black">
-              Please fill out the form below to report an incident.
-            </p>
+          <div className="flex justify-between items-start gap-4">
+            <div className="space-y-2">
+              <h1 className="text-2xl sm:text-3xl font-semibold leading-tight tracking-tight text-black">
+                File an Incident
+              </h1>
+              <p className="text-base sm:text-lg leading-7 sm:leading-8 text-black">
+                Please fill out the form below to report an incident.
+              </p>
+            </div>
+            <Button
+              type="button"
+              variant="default"
+              onClick={() => router.push("/")}
+              className="shrink-0"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back
+            </Button>
           </div>
 
           <form onSubmit={handleSubmit} className="w-full space-y-5 sm:space-y-6">
