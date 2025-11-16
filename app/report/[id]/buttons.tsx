@@ -8,10 +8,10 @@ export function BackButton() {
   
   return (
     <Button
-      onClick={() => router.push('/')}
+      onClick={() => router.push('/account')}
       className="bg-gray-900 border-gray-600 border-b-gray-500 px-4 py-2 text-sm text-white"
     >
-      ← Back to Home
+      ← Back to Account
     </Button>
   );
 }

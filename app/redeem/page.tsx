@@ -28,7 +28,7 @@ export default function RedeemPage() {
       </div>
       <div className="text-xl absolute top-6 right-6">
         <div className="flex gap-2 justify-center items-center">
-          <p className="text-[#000000]">3,687</p>
+          <p className="text-[#000000]">4,234</p>
           <Coins className="w-6 h-6 text-yellow-400" />
           <ProfileDropdown />
         </div>
