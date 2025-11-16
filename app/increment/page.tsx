@@ -5,7 +5,8 @@ import styles from '../page.module.css'
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { ChevronRight, User, Coins } from "lucide-react";
+import { ChevronRight, Coins } from "lucide-react";
+import ProfileDropdown from "@/components/ProfileDropdown";
 
 
 
@@ -35,7 +36,7 @@ export default function Home() {
             <div className="flex gap-2 justify-center items-center">
                 <p className="text-[#000000]">4,067</p>
                 <Coins className="w-6 h-6 text-yellow-400" />
-                <User className=" w-6 h-6 text-[#000000]" />
+                <ProfileDropdown />
             </div>
           </div>
           <div className='mx-[50%] flex flex-col gap-2 justify-center items-center'>
