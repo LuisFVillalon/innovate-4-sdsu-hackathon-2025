@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight } from "lucide-react";
 
 import styles from "./page.module.css";
 import { Button } from "./components/ui/3d-button";

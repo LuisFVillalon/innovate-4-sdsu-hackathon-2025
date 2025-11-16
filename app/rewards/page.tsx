@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Coins } from "lucide-react";
 import styles from "../page.module.css";
+import Link from "next/link";
 import ProfileDropdown from "@/components/ProfileDropdown";
 
 export default function PrizePage() {
@@ -18,17 +19,33 @@ export default function PrizePage() {
   return (
     <div className={`${styles.mainWrapper} relative min-h-screen bg-white`}>
       {/* Top right coin + profile */}
-      <div className="absolute top-6 right-6">
-        <div className="flex gap-2 justify-center items-center">
-          <p className="text-[#000000]">3,789</p>
-          <Coins className="w-6 h-6 text-yellow-400" />
-          <ProfileDropdown />
+            <div className="w-full flex justify-between items-center max-w-6xl mx-auto p-4">
+        {/* Logo */}
+        <div className=" flex items-center h-10">
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/crashapplogo.png"
+              alt="Logo"
+              width={112}
+              height={112}
+              className="h-28 w-28 rounded-full object-cover bg-transparent"
+              priority
+            />
+          </Link>
         </div>
+        {/* Account button */}
+          <div className="text-xl flex">
+            <div className="flex gap-2 justify-center items-center">
+                <p className="text-[#000000]">4,234</p>
+                <Coins className="w-6 h-6 text-yellow-400" />
+                <ProfileDropdown />
+            </div>
+          </div>
       </div>
 
       {/* Header */}
       <div className="text-left w-full max-w-xl mx-auto mt-20 px-4">
-        <p className="text-2xl font-semibold text-black">Hi Luis,</p>
+        <p className="text-2xl font-semibold text-black">Hi Michael,</p>
         <p className="text-xl text-gray-700">Select a prize</p>
       </div>
 
@@ -49,7 +66,10 @@ export default function PrizePage() {
               />
             </div>
             <p className="text-black font-medium">{prize.name}</p>
-            <p className="text-gray-500 text-sm">{prize.id}</p>
+            <div className="flex">
+              <Coins className="w-4 h-4 text-yellow-400" />
+              <p className="text-gray-500 text-sm">{prize.id.toLocaleString()}</p>
+            </div>
           </div>
         ))}
       </div>

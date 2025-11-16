@@ -1,13 +1,11 @@
 'use client';
-//TODO change license plate search from id to license plate
-//
 import styles from '../page.module.css'
 
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 //import { useRouter } from "next/navigation";
-import { ChevronRight, Coins } from "lucide-react";
+import { Coins } from "lucide-react";
 import ProfileDropdown from "@/components/ProfileDropdown";
 
 import { Button } from "../components/ui/3d-button"
@@ -61,7 +59,7 @@ const filteredReports = licenseQuery.trim()
         {/* Account button */}
           <div className="text-xl flex">
             <div className="flex gap-2 justify-center items-center">
-                <p className="text-[#000000]">3,687</p>
+                <p className="text-[#000000]">4,234</p>
                 <Coins className="w-6 h-6 text-yellow-400" />
                 <ProfileDropdown />
             </div>
