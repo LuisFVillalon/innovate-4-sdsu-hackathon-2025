@@ -17,9 +17,11 @@ export default function Home() {
 
   return (
     <div className={styles.mainWrapper}>
-          <div className="text-xl text-[#000000] underline absolute top-4 right-4">
+          <div className="absolute top-4 right-4">
             <Link href="/account">
-              Sign In
+              <Button className="bg-black border-gray-600 border-b-gray-500 text-white px-6 py-2">
+                Sign In
+              </Button>
             </Link>
           </div>
           <div className='mx-[5%] flex flex-col gap-6 justify-center items-center'>
