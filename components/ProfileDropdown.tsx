@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { User } from "lucide-react";
 
 export default function ProfileDropdown() {
   const router = useRouter();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -46,19 +47,31 @@ export default function ProfileDropdown() {
           <div className="py-1">
             <button
               onClick={() => handleMenuClick('/account')}
-              className="w-full text-left px-4 py-2 text-sm text-black hover:bg-gray-100 transition-colors"
+              className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
+                pathname === '/account' 
+                  ? 'text-black font-semibold bg-gray-100' 
+                  : 'text-black'
+              }`}
             >
               Profile
             </button>
             <button
               onClick={() => handleMenuClick('/redeem')}
-              className="w-full text-left px-4 py-2 text-sm text-black hover:bg-gray-100 transition-colors"
+              className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
+                pathname === '/redeem' 
+                  ? 'text-black font-semibold bg-gray-100' 
+                  : 'text-black'
+              }`}
             >
               Redeem
             </button>
             <button
               onClick={() => handleMenuClick('/rewards')}
-              className="w-full text-left px-4 py-2 text-sm text-black hover:bg-gray-100 transition-colors"
+              className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
+                pathname === '/rewards' 
+                  ? 'text-black font-semibold bg-gray-100' 
+                  : 'text-black'
+              }`}
             >
               Rewards
             </button>
