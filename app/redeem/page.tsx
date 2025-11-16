@@ -3,10 +3,12 @@
 import styles from './page.module.css'
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ChevronRight, User, Coins } from "lucide-react";
 
 export default function RedeemPage() {
+  const router = useRouter()
   const [token, setToken] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -17,14 +19,8 @@ export default function RedeemPage() {
     }
     
     setIsSubmitting(true)
-    // Handle token redemption logic here
-    console.log("Redeeming token:", token)
-    
-    // Reset after a brief delay (for demo purposes)
-    setTimeout(() => {
-      setIsSubmitting(false)
-      // Could navigate to success page or show success message
-    }, 1000)
+    // Navigate to increment page
+    router.push('/increment')
   }
 
   return (
