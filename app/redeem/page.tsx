@@ -2,6 +2,7 @@
 
 import styles from './page.module.css'
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 
@@ -28,8 +29,21 @@ export default function RedeemPage() {
 
   return (
     <div className={styles.mainWrapper}>
-      <div className="text-xl text-[#000000] underline absolute top-4 right-4">
-        <Link href="/account">
+      <div className="absolute top-4 left-0 bg-transparent flex items-center h-10">
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/crashapplogo.png"
+            alt="Logo"
+            width={112}
+            height={112}
+            className="h-28 w-28 rounded-full object-cover bg-transparent"
+            style={{ backgroundColor: 'transparent' }}
+            priority
+          />
+        </Link>
+      </div>
+      <div className="text-xl text-[#000000] underline absolute top-4 right-4 flex items-center h-10">
+        <Link href="/account" className="flex items-center">
           Sign In
         </Link>
       </div>
