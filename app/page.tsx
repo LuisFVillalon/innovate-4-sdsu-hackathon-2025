@@ -14,6 +14,7 @@ interface Report {
   reportId: string;
   licensePlate: string;
   timestamp: string;
+  description: string;
   location: string;
 }
 
@@ -99,14 +100,14 @@ const filteredReports = licenseQuery.trim()
               placeholder="Enter your license plate"
               value={licenseQuery}
               onChange={(e) => setLicenseQuery(e.target.value)}
-              className="bg-white text-xl text-black placeholder:text-black"
+              className="!bg-white !text-black placeholder:!text-gray-500 text-xl"
             />
-            <Button
+            {/* <Button
               type="button"
               className="bg-gray-900 border-gray-600 border-b-gray-500"
             >
               <ChevronRight className="w-5 h-5 text-white" />
-            </Button>
+            </Button> */}
           </form>
         </div>
       ) : (
@@ -137,9 +138,10 @@ const filteredReports = licenseQuery.trim()
             {filteredReports.map((report) => (
               <div
                 key={report.reportId}
-                className="border-l-4 border-[#A6192E] bg-gray-300  rounded-md shadow-sm"
+                className="border-l-4 border-[#A6192E] bg-gray-300 rounded-md shadow-sm hover:bg-gray-200 transition-colors block p-4"
               >
                 <p className="text-lg font-bold text-gray-800">{report.licensePlate}</p>
+                <p className="text-sm text-gray-500">{report.description}</p>
                 <p className="text-sm text-gray-500">{report.location}</p>
                 <p className="text-xs text-gray-400">
                   {new Date(report.timestamp).toLocaleString()}

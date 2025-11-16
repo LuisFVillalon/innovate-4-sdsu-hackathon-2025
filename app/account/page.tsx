@@ -6,7 +6,7 @@ import styles from '../page.module.css'
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
 import { ChevronRight, Coins } from "lucide-react";
 import ProfileDropdown from "@/components/ProfileDropdown";
 
@@ -19,30 +19,28 @@ interface Report {
   licensePlate: string;
   timestamp: string;
   location: string;
+  description: string;
 }
 
 export default function Home() {
   const [reportInput, setReportInput] = useState(false);
-  const [reports, setReports] = useState<Report[]>([]);  
-  const [reportId, setReportId] = useState("");
-  const router = useRouter();
+  const [reports, setReports] = useState<Report[]>([]); 
+  const [licenseQuery, setLicenseQuery] = useState(""); 
   useEffect(() => {
-    // Load JSON file from public directory
     fetch("/reports.json")
       .then((res) => res.json())
       .then((data) => {
-        if (data.reports) {
-          setReports(data.reports);
-        }
+        const list = Array.isArray(data) ? data : data.reports;
+        if (list) setReports(list);
       })
       .catch((err) => console.error("Error loading reports:", err));
   }, []);
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (reportId.trim()) {
-      router.push(`/report/${reportId.trim()}`);
-    }
-  };
+  // ✅ Filter reports live by license plate (case-insensitive)
+const filteredReports = licenseQuery.trim()
+  ? reports.filter((r) =>
+      r.licensePlate.toLowerCase().includes(licenseQuery.trim().toLowerCase())
+    )
+  : reports;
 
   return (
     <div className={styles.mainWrapper}>
@@ -82,32 +80,30 @@ export default function Home() {
             </div>
           </div>
           { reportInput ?
-              <div className="pt-[5%] md:pt-[10%] flex flex-col gap-8 justify-center items-center">
-                <Button  
-                  className={`bg-gray-900 border-gray-600
-                   border-b-gray-500 px-10 py-6 text-xl text-white ${styles.fadeInLeft}`} 
-                  onClick={() => setReportInput(false)}>
-                    Go Back
+              <div className="pt-[2.5%] flex flex-col gap-4 justify-center items-center">
+                <Button
+                  className="bg-gray-900 border-gray-600 border-b-gray-500 px-10 py-6 text-xl text-white"
+                  onClick={() => {
+                    setReportInput(false);
+                    setLicenseQuery(""); // ✅ clears the search filter
+                  }}
+                              
+                >
+                  Go Back
                 </Button>
-                <form onSubmit={handleSubmit} className='flex gap-2 px-10 py-6 text-xl flex mt-0'>
+                <form className='flex gap-2 px-10 py-3 text-xl flex-col mt-0'>
+                  <label className="text-black">Click on a report to view full details.</label>
                   <Input
                     type="text"
                     placeholder="Enter your license plate"
-                    value={reportId}
-                    onChange={(e) => setReportId(e.target.value)}
-                    className={`bg-white text-xl text-white placeholder:text-black ${styles.fadeInRight}`}
+                    value={licenseQuery}
+                    onChange={(e) => setLicenseQuery(e.target.value)}
+                    className={`bg-white text-xl text-black placeholder:text-black ${styles.fadeInRight}`}
                   />
-                  <Button  
-                    type="submit"
-                    className={`bg-gray-900 border-gray-600
-                   border-b-gray-500 ${styles.fadeInRight}`} 
-                  >
-                    <ChevronRight className="w-5 h-5 text-white" />
-                  </Button>
                 </form>
               </div>
               :
-              <div className="pt-[5%] md:pt-[10%] flex flex-col gap-8 justify-center items-center">
+              <div className="pt-[5%] flex flex-col gap-8 justify-center items-center">
                 <div className={`text-white w-full ${styles.fadeInLeft}`}>
                     <Link href="/report/new">
                       <Button className="w-full bg-gray-900 border-gray-600
@@ -131,24 +127,26 @@ export default function Home() {
           {/* Scrollable JSON report list */}
           <div className="w-full px-[5%] flex flex-col justify-start items-center">
             <h2 className="text-2xl font-bold text-[#A6192E] ">Recent Reports</h2>
-            {reports && reports.length > 0 ? (
-              <div className="flex flex-col w-full text-black max-h-[50vh] overflow-y-auto w-[90%] md:w-1/2 bg-gray-50 rounded-xl p-4 pl-0 space-y-3">
-                {reports.map((report) => (
-                  <div
-                    key={report.reportId}
-                    className="border-l-4 border-[#A6192E] bg-gray-300  rounded-md shadow-sm"
-                  >
-                    <p className="text-lg font-bold text-gray-800">{report.licensePlate}</p>
-                    <p className="text-sm text-gray-500">{report.location}</p>
-                    <p className="text-xs text-gray-400">
-                      {new Date(report.timestamp).toLocaleString()}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              {filteredReports && filteredReports.length > 0 ? (
+                <div className="flex flex-col w-full text-black max-h-[50vh] overflow-y-auto w-[90%] md:w-1/2 bg-gray-50 rounded-xl p-4 pl-0 space-y-3">
+                  {filteredReports.map((report) => (
+                    <Link
+                      key={report.reportId}
+                      href={`/report/${encodeURIComponent(report.licensePlate)}`}
+                      className="border-l-4 border-[#A6192E] bg-gray-300 rounded-md shadow-sm hover:bg-gray-200 transition-colors block p-4"
+                    >
+                      <p className="text-lg font-bold text-gray-800">{report.licensePlate}</p>
+                      <p className="text-sm text-gray-500">{report.description}</p>
+                      <p className="text-sm text-gray-500">{report.location}</p>
+                      <p className="text-xs text-gray-400">
+                        {new Date(report.timestamp).toLocaleString()}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
               ) : (
-              <p className="text-gray-500 mt-6">No reports found.</p>
-            )}
+                <p className="text-gray-500 mt-6">No reports found.</p>
+              )}
           </div>
     </div>
   );
