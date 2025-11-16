@@ -3,26 +3,13 @@
 import styles from './page.module.css'
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ChevronRight, Coins } from "lucide-react";
 import ProfileDropdown from "@/components/ProfileDropdown";
 
 export default function RedeemPage() {
-  const router = useRouter()
   const [token, setToken] = useState("")
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!token.trim()) {
-      return
-    }
-    
-    setIsSubmitting(true)
-    // Navigate to increment page
-    router.push('/increment')
-  }
 
   return (
     <div className={styles.mainWrapper}>
@@ -41,7 +28,7 @@ export default function RedeemPage() {
       </div>
       <div className="text-xl absolute top-6 right-6">
         <div className="flex gap-2 justify-center items-center">
-          <p className="text-[#000000]">3,687</p>
+          <p className="text-[#000000]">4,234</p>
           <Coins className="w-6 h-6 text-yellow-400" />
           <ProfileDropdown />
         </div>
@@ -62,23 +49,30 @@ export default function RedeemPage() {
       </div>
 
       <div className="flex flex-col gap-8 justify-center items-center">
-        <form onSubmit={handleSubmit} className='flex gap-2 px-10 py-6 text-xl flex mt-0'>
-          <input
-            type="text"
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-            placeholder="Enter your Crash Token"
-            className={`flex h-9 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xl text-black shadow-sm shadow-black/5 transition-shadow placeholder-[#FFFFFF] focus-visible:border-ring focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50 ${styles.fadeInLeft}`}
-            disabled={isSubmitting}
-          />
-          <button
-            type="submit"
-            className={`bg-gray-900 border-gray-600 border-b-gray-500 px-4 py-2 rounded-lg ${styles.fadeInRight}`}
-            disabled={!token.trim() || isSubmitting}
-          >
-            <ChevronRight className="w-5 h-5 text-white" />
-          </button>
-        </form>
+        <div className="flex gap-2 px-10 py-6 text-xl mt-0">
+            <input
+              type="text"
+              value={token}
+              onChange={(e) => setToken(e.target.value)}
+              placeholder="Enter your Crash Token"
+              className={`flex h-9 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xl text-black shadow-sm shadow-black/5 transition-shadow placeholder-[#FFFFFF] focus-visible:border-ring focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50 ${styles.fadeInLeft}`}
+             
+            />
+            {!token.trim() ? (
+              <div
+                className={`${styles.fadeInRight} bg-gray-900 border-gray-600 border-b-gray-500 px-4 py-2 rounded-lg flex items-center justify-center opacity-50 cursor-not-allowed`}
+              >
+                <ChevronRight className="w-5 h-5 text-white" />
+              </div>
+            ) : (
+              <Link
+                href="/increment"
+                className={`bg-gray-900 border-gray-600 border-b-gray-500 px-4 py-2 rounded-lg flex items-center justify-center`}
+              >
+                <ChevronRight className="w-5 h-5 text-white" />
+              </Link>
+            )}
+          </div>
       </div>
     </div>
   )
