@@ -48,7 +48,7 @@ export default function ProfileDropdown() {
             <button
               onClick={() => handleMenuClick('/account')}
               className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
-                pathname === '/account' 
+                pathname === '/account' || pathname === '/increment'
                   ? 'text-black font-semibold bg-gray-100' 
                   : 'text-black'
               }`}
