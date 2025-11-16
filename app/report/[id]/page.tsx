@@ -3,6 +3,7 @@ import { join } from 'path';
 import Link from 'next/link';
 import styles from '../../page.module.css';
 import Image from 'next/image';
+import { BackButton, DownloadButton } from './buttons';
 
 interface Report {
   reportId: string;
@@ -32,7 +33,7 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
     const filePath = join(process.cwd(), 'reports', 'reports.json');
     const fileContents = readFileSync(filePath, 'utf8');
     const data: ReportsData = JSON.parse(fileContents);
-    report = data.reports.find((r) => r.reportId === id) || null;
+    report = data.reports.find((r) => r.licensePlate === id) || null;
   } catch (error) {
     console.error('Error reading reports file:', error);
   }
@@ -68,19 +69,17 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
     <div className="min-h-screen bg-white p-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <Link
-            href="/"
-            className="text-xl text-[#000000] underline hover:text-[#A6192E]"
-          >
-            ← Back to Home
-          </Link>
+          <BackButton />
         </div>
 
         <div className="bg-white border-2 border-gray-200 rounded-lg shadow-lg p-8 space-y-6">
           <div className="border-b-2 border-gray-200 pb-4">
-            <h1 className="text-4xl font-bold text-[#A6192E] mb-2">
-              Report #{report.reportId}
-            </h1>
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <h1 className="text-4xl font-bold text-[#A6192E]">
+                Crash App Report For Plate: <span className="text-gray-600">#{report.licensePlate}</span>
+              </h1>
+              <DownloadButton />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
