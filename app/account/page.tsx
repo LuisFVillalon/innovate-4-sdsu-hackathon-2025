@@ -3,6 +3,7 @@
 import styles from '../page.module.css'
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { ChevronRight, User, Coins } from "lucide-react";
 
@@ -17,6 +18,19 @@ export default function Home() {
 
   return (
     <div className={styles.mainWrapper}>
+          <div className="absolute top-4 left-0 bg-transparent flex items-center h-10">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/crashapplogo.png"
+                alt="Logo"
+                width={112}
+                height={112}
+                className="h-28 w-28 rounded-full object-cover bg-transparent"
+                style={{ backgroundColor: 'transparent' }}
+                priority
+              />
+            </Link>
+          </div>
           <div className="text-xl absolute top-6 right-6">
             <div className="flex gap-2 justify-center items-center">
                 <p className="text-[#000000]">3,687</p>
@@ -27,7 +41,7 @@ export default function Home() {
           <div className='mx-[50%] flex flex-col gap-2 justify-center items-center'>
             <div className={`w-full ${styles.fadeIn} text-start text-2xl text-[#000000]`}>
               <p>
-                  Hi Luis, welcome to
+                  Hi Michael, welcome to
               </p>
             </div>
             <div className={`${styles.fadeIn} text-start text-[#A6192E] text-8xl font-bold`}>
