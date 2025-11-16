@@ -5,7 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ChevronRight, User, Coins } from "lucide-react";
+import { ChevronRight, Coins } from "lucide-react";
+import ProfileDropdown from "../components/ProfileDropdown";
 
 export default function RedeemPage() {
   const router = useRouter()
@@ -42,7 +43,7 @@ export default function RedeemPage() {
         <div className="flex gap-2 justify-center items-center">
           <p className="text-[#000000]">3,687</p>
           <Coins className="w-6 h-6 text-yellow-400" />
-          <User className=" w-6 h-6 text-[#000000]" />
+          <ProfileDropdown />
         </div>
       </div>
 
