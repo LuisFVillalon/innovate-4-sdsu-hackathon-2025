@@ -1,0 +1,56 @@
+{
+  "reports": [
+    {
+      "reportId": "2FBD298",
+      "contact": {
+        "name": "John Doe",
+        "phone": "619 123 4567",
+        "email": "john.doe@sdsu.edu"
+      },
+      "incident": "I caused it.",
+      "licensePlate": "9CYS740",
+      "photos": [
+        "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800",
+        "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800"
+      ],
+      "description": "I accidentally backed into your parked car in P12.",
+      "timestamp": "2025-11-16T16:30:00.000Z",
+      "location": "P12"
+    },
+    {
+      "reportId": "7XGH103",
+      "contact": {
+        "name": "Jane Smith",
+        "phone": "858 555 3210",
+        "email": "jane.smith@sdsu.edu"
+      },
+      "incident": "I witnessed it.",
+      "licensePlate": "8JKL223",
+      "photos": [
+        "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800",
+        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800"
+      ],
+      "description": "I saw a white sedan sideswipe a parked car near PS7.",
+      "timestamp": "2025-11-14T10:15:00.000Z",
+      "location": "P7"
+    },
+    {
+      "reportId": "4QZT821",
+      "contact": {
+        "name": "Carlos Nguyen",
+        "phone": "760 987 6543",
+        "email": "carlos.nguyen@sdsu.edu"
+      },
+      "incident": "I caused it.",
+      "licensePlate": "7TRF990",
+      "photos": [
+        "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800",
+        "https://images.unsplash.com/photo-1523983301541-78f1e26c3c8f?w=800"
+      ],
+      "description": "I bumped into another car while exiting PS3.",
+      "timestamp": "2025-11-12T18:45:00.000Z",
+      "location": "P3"
+    }
+  ]
+}
+
