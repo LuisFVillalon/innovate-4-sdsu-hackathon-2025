@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ChevronRight, Coins } from "lucide-react";
-import ProfileDropdown from "../components/ProfileDropdown";
+import ProfileDropdown from "@/components/ProfileDropdown";
 
 export default function RedeemPage() {
   const router = useRouter()
