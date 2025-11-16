@@ -3,6 +3,7 @@
 import styles from './page.module.css'
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 
@@ -17,9 +18,24 @@ export default function Home() {
 
   return (
     <div className={styles.mainWrapper}>
-          <div className="text-xl text-[#000000] underline absolute top-4 right-4">
+          <div className="absolute top-4 left-0 bg-transparent flex items-center h-10">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/crashapplogo.png"
+                alt="Logo"
+                width={112}
+                height={112}
+                className="h-28 w-28 rounded-full object-cover bg-transparent"
+                style={{ backgroundColor: 'transparent' }}
+                priority
+              />
+            </Link>
+          </div>
+          <div className="absolute top-4 right-4">
             <Link href="/account">
-              Sign In
+              <Button className="bg-black border-gray-600 border-b-gray-500 text-white px-6 py-2">
+                Sign In
+              </Button>
             </Link>
           </div>
           <div className='mx-[5%] flex flex-col gap-6 justify-center items-center'>
