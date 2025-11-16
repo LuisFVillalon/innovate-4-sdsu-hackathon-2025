@@ -37,21 +37,21 @@ export default function NewReport() {
   const [location, setLocation] = useState<string>("")
 
   // Generate random license plate number
-  const generateRandomLicensePlate = useCallback((): string => {
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    const numbers = "0123456789"
-    
-    // Format: 1 number + 3 letters + 3 numbers (e.g., "1ABC234")
-    const num1 = numbers[Math.floor(Math.random() * numbers.length)]
-    const letter1 = letters[Math.floor(Math.random() * letters.length)]
-    const letter2 = letters[Math.floor(Math.random() * letters.length)]
-    const letter3 = letters[Math.floor(Math.random() * letters.length)]
-    const num2 = numbers[Math.floor(Math.random() * numbers.length)]
-    const num3 = numbers[Math.floor(Math.random() * numbers.length)]
-    const num4 = numbers[Math.floor(Math.random() * numbers.length)]
-    
-    return `${num1}${letter1}${letter2}${letter3}${num2}${num3}${num4}`
-  }, [])
+  // const generateRandomLicensePlate = useCallback((): string => {
+  //   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  //   const numbers = "0123456789"
+  //   
+  //   // Format: 1 number + 3 letters + 3 numbers (e.g., "1ABC234")
+  //   const num1 = numbers[Math.floor(Math.random() * numbers.length)]
+  //   const letter1 = letters[Math.floor(Math.random() * letters.length)]
+  //   const letter2 = letters[Math.floor(Math.random() * letters.length)]
+  //   const letter3 = letters[Math.floor(Math.random() * letters.length)]
+  //   const num2 = numbers[Math.floor(Math.random() * numbers.length)]
+  //   const num3 = numbers[Math.floor(Math.random() * numbers.length)]
+  //   const num4 = numbers[Math.floor(Math.random() * numbers.length)]
+  //   
+  //   return `${num1}${letter1}${letter2}${letter3}${num2}${num3}${num4}`
+  // }, [])
 
   // Extract timestamp from image metadata
   const extractTimestampFromFile = useCallback((file: File): string => {
@@ -107,15 +107,17 @@ export default function NewReport() {
       setLicensePlateImage(url)
       setLicensePlateFile(file)
       // Auto-populate random license plate number
-      const randomPlate = generateRandomLicensePlate()
-      setLicensePlateNumber(randomPlate)
+      // const randomPlate = generateRandomLicensePlate()
+      // setLicensePlateNumber(randomPlate)
+      // Hardcoded for demo
+      setLicensePlateNumber("8KXD006")
       // Auto-populate timestamp from file metadata if not already set
       if (!timestamp) {
         const extractedTimestamp = extractTimestampFromFile(file)
         setTimestamp(extractedTimestamp)
       }
     },
-    [timestamp, extractTimestampFromFile, generateRandomLicensePlate]
+    [timestamp, extractTimestampFromFile]
   )
 
   const handleDamageImageUpload = useCallback(
