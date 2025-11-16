@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, User, Coins } from "lucide-react";
 
 export default function RedeemPage() {
   const [token, setToken] = useState("")
@@ -42,10 +42,12 @@ export default function RedeemPage() {
           />
         </Link>
       </div>
-      <div className="text-xl text-[#000000] underline absolute top-4 right-4 flex items-center h-10">
-        <Link href="/account" className="flex items-center">
-          Sign In
-        </Link>
+      <div className="text-xl absolute top-6 right-6">
+        <div className="flex gap-2 justify-center items-center">
+          <p className="text-[#000000]">4,067</p>
+          <Coins className="w-6 h-6 text-yellow-400" />
+          <User className=" w-6 h-6 text-[#000000]" />
+        </div>
       </div>
 
       <div className='mx-[5%] flex flex-col gap-6 justify-center items-center'>
