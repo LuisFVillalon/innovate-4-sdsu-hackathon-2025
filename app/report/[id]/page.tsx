@@ -23,14 +23,16 @@ interface ReportsData {
   reports: Report[];
 }
 
-export default function ReportPage({ params }: { params: { id: string } }) {
+export default async function ReportPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
   let report: Report | null = null;
+  const resolvedParams = params instanceof Promise ? await params : params;
+  const { id } = resolvedParams;
 
   try {
     const filePath = join(process.cwd(), 'reports', 'reports.json');
     const fileContents = readFileSync(filePath, 'utf8');
     const data: ReportsData = JSON.parse(fileContents);
-    report = data.reports.find((r) => r.reportId === params.id) || null;
+    report = data.reports.find((r) => r.reportId === id) || null;
   } catch (error) {
     console.error('Error reading reports file:', error);
   }
@@ -83,14 +85,16 @@ export default function ReportPage({ params }: { params: { id: string } }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              <div>
-                <h2 className="text-xl font-semibold text-[#000000] mb-2">Contact Information</h2>
-                <div className="bg-gray-50 p-4 rounded-lg space-y-2">
-                  <p className="text-black"><span className="font-medium">Name:</span> {report.contact.name}</p>
-                  <p className="text-black"><span className="font-medium">Phone:</span> {report.contact.phone}</p>
-                  <p className="text-black"><span className="font-medium">Email:</span> {report.contact.email}</p>
+              {report.contact && (
+                <div>
+                  <h2 className="text-xl font-semibold text-[#000000] mb-2">Contact Information</h2>
+                  <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                    <p className="text-black"><span className="font-medium">Name:</span> {report.contact.name}</p>
+                    <p className="text-black"><span className="font-medium">Phone:</span> {report.contact.phone}</p>
+                    <p className="text-black"><span className="font-medium">Email:</span> {report.contact.email}</p>
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div>
                 <h2 className="text-xl font-semibold text-[#000000] mb-2">Incident Details</h2>
