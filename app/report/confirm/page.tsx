@@ -1,16 +1,17 @@
 "use client"
 
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useState, Suspense } from "react"
 import { Copy, Check } from "lucide-react"
 import { Button } from "@/components/ui/3d-button"
 
 function ConfirmContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [copied, setCopied] = useState(false)
   
-  // Hardcoded values
-  const crashId = "2FBD298"
+  // Get reportId from URL params, fallback to default if not present
+  const crashId = searchParams.get('reportId') || "2FBD298"
   const crashToken = "XD-1234"
 
   const handleCopyToken = async () => {
@@ -144,6 +145,10 @@ function ConfirmContent() {
 }
 
 export default function ConfirmReport() {
-  return <ConfirmContent />
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ConfirmContent />
+    </Suspense>
+  )
 }
 
