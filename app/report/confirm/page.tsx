@@ -4,6 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useState, Suspense } from "react"
 import { Copy, Check } from "lucide-react"
 import { Button } from "@/components/ui/3d-button"
+import Image from "next/image"
+import Link from "next/link"
 
 function ConfirmContent() {
   const router = useRouter()
@@ -69,17 +71,30 @@ function ConfirmContent() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white font-sans">
+    <div className="flex min-h-screen items-center justify-center bg-white font-sans relative">
+      <div className="absolute top-4 left-0 bg-transparent flex items-center h-10 z-10">
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/crashapplogo.png"
+            alt="Logo"
+            width={112}
+            height={112}
+            className="h-28 w-28 rounded-full object-cover bg-transparent"
+            style={{ backgroundColor: 'transparent' }}
+            priority
+          />
+        </Link>
+      </div>
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-start py-8 px-4 sm:py-16 sm:px-8 bg-white">
         <div className="w-full space-y-6 sm:space-y-8">
-          <div className="space-y-2 text-center w-full">
+          <div className="space-y-2 text-center w-full pt-12">
             <h1 className="text-2xl sm:text-3xl font-semibold leading-tight tracking-tight text-black">
               Report Submitted Successfully!
             </h1>
           </div>
 
-          <div className="w-full space-y-6 py-8">
-            <div className="bg-white border-2 border-gray-300 rounded-xl p-8 space-y-6">
+          <div className="w-full space-y-6 py-2">
+            <div className="bg-white border-2 border-gray-300 rounded-xl p-6 flex items-center justify-center min-h-[200px] max-w-md mx-auto">
               {/* Crash ID Section */}
               {/* <div className="space-y-3 text-center">
                 <p className="text-sm font-medium text-black">
@@ -96,27 +111,27 @@ function ConfirmContent() {
               </div> */}
 
               {/* Crash Token Section */}
-              <div className="space-y-3 text-center pt-6">
+              <div className="space-y-3 text-center w-full">
                 <p className="text-sm font-medium text-black">
                   Your <span style={{ color: '#A6192E' }}>Crash Token</span> is:
                 </p>
                 <div className="flex items-center justify-center gap-2">
-                  <div className="bg-white border border-gray-300 rounded-lg p-4">
-                    <div className="text-2xl sm:text-3xl font-bold text-black tracking-wider">
-                      {crashToken}
+                    <div className="bg-white border border-gray-300 rounded-lg p-4">
+                      <div className="text-2xl sm:text-3xl font-bold text-black tracking-wider">
+                        {crashToken}
+                      </div>
                     </div>
-                  </div>
-                  <button
-                    onClick={handleCopyToken}
-                    className="p-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-                    aria-label="Copy crash token"
-                  >
-                    {copied ? (
-                      <Check className="h-5 w-5 text-green-600" />
-                    ) : (
-                      <Copy className="h-5 w-5 text-black" />
-                    )}
-                  </button>
+                    <button
+                      onClick={handleCopyToken}
+                      className="p-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+                      aria-label="Copy crash token"
+                    >
+                      {copied ? (
+                        <Check className="h-5 w-5 text-green-600" />
+                      ) : (
+                        <Copy className="h-5 w-5 text-black" />
+                      )}
+                    </button>
                 </div>
                 {copied && (
                   <p className="text-xs text-green-600">Copied!</p>
