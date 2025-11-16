@@ -101,12 +101,6 @@ const filteredReports = licenseQuery.trim()
               onChange={(e) => setLicenseQuery(e.target.value)}
               className="!bg-white !text-black placeholder:!text-gray-500 text-xl"
             />
-            {/* <Button
-              type="button"
-              className="bg-gray-900 border-gray-600 border-b-gray-500"
-            >
-              <ChevronRight className="w-5 h-5 text-white" />
-            </Button> */}
           </form>
         </div>
       ) : (
@@ -123,7 +117,7 @@ const filteredReports = licenseQuery.trim()
               className="w-full bg-gray-900 border-gray-600 border-b-gray-500 px-10 py-6 text-xl"
               onClick={() => setReportInput(true)}
             >
-              Get a Report
+              Find a Report
             </Button>
           </div>
         </div>
