@@ -30,8 +30,7 @@ export default function ReportPage({ params }: { params: { id: string } }) {
     const filePath = join(process.cwd(), 'reports', 'reports.json');
     const fileContents = readFileSync(filePath, 'utf8');
     const data: ReportsData = JSON.parse(fileContents);
-    // Hardcoded for testing
-    report = data.reports.find((r) => r.reportId === "2FBD298") || null;
+    report = data.reports.find((r) => r.reportId === params.id) || null;
   } catch (error) {
     console.error('Error reading reports file:', error);
   }
