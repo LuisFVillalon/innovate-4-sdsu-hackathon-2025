@@ -81,7 +81,7 @@ function ConfirmContent() {
           <div className="w-full space-y-6 py-8">
             <div className="bg-white border-2 border-gray-300 rounded-xl p-8 space-y-6">
               {/* Crash ID Section */}
-              <div className="space-y-3 text-center">
+              {/* <div className="space-y-3 text-center">
                 <p className="text-sm font-medium text-black">
                   Your <span style={{ color: '#A6192E' }}>Crash ID</span> is:
                 </p>
@@ -93,10 +93,10 @@ function ConfirmContent() {
                 <p className="text-sm text-black pt-2">
                   Write this on the back of your <span style={{ color: '#A6192E' }}>Crash Card</span>.
                 </p>
-              </div>
+              </div> */}
 
               {/* Crash Token Section */}
-              <div className="space-y-3 text-center border-t border-gray-200 pt-6">
+              <div className="space-y-3 text-center pt-6">
                 <p className="text-sm font-medium text-black">
                   Your <span style={{ color: '#A6192E' }}>Crash Token</span> is:
                 </p>
