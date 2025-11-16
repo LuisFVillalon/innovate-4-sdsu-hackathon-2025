@@ -4,6 +4,7 @@
     gap: 1.5rem;
     align-items: center;
     background: #FFFFFF;
+    min-height: 100vh;
 }
 @media (min-width: 1024px) {
   .mainWrapper {

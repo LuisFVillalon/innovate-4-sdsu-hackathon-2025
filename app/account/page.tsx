@@ -92,10 +92,10 @@ export default function Home() {
                 <form onSubmit={handleSubmit} className='flex gap-2 px-10 py-6 text-xl flex mt-0'>
                   <Input
                     type="text"
-                    placeholder="Enter your ID Report"
+                    placeholder="Enter your license plate"
                     value={reportId}
                     onChange={(e) => setReportId(e.target.value)}
-                    className={`text-xl placeholder-[#FFFFFF] ${styles.fadeInRight}`}
+                    className={`bg-white text-xl text-white placeholder:text-black ${styles.fadeInRight}`}
                   />
                   <Button  
                     type="submit"

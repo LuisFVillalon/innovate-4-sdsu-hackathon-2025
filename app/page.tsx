@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
@@ -20,28 +19,27 @@ interface Report {
 
 export default function Home() {
   const [reportInput, setReportInput] = useState(false);
-  const [reportId, setReportId] = useState("");
+  const [licenseQuery, setLicenseQuery] = useState("");
   const [reports, setReports] = useState<Report[]>([]);
-  const router = useRouter();
 
   useEffect(() => {
-    // Load JSON file from public directory
     fetch("/reports.json")
       .then((res) => res.json())
       .then((data) => {
-        if (data.reports) {
-          setReports(data.reports);
-        }
+        const list = Array.isArray(data) ? data : data.reports;
+        if (list) setReports(list);
       })
       .catch((err) => console.error("Error loading reports:", err));
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (reportId.trim()) {
-      router.push(`/report/${reportId.trim()}`);
-    }
-  };
+  // ✅ Filter reports live by license plate (case-insensitive)
+const filteredReports = licenseQuery.trim()
+  ? reports.filter((r) =>
+      r.licensePlate.toLowerCase().includes(licenseQuery.trim().toLowerCase())
+    )
+  : reports;
+
+
 
   return (
     <div className={`${styles.mainWrapper} `}>
@@ -86,21 +84,25 @@ export default function Home() {
         <div className="flex flex-col gap-8 justify-center items-center">
           <Button
             className="bg-gray-900 border-gray-600 border-b-gray-500 px-10 py-6 text-xl text-white"
-            onClick={() => setReportInput(false)}
+            onClick={() => {
+              setReportInput(false);
+              setLicenseQuery(""); // ✅ clears the search filter
+            }}
+                        
           >
             Go Back
           </Button>
 
-          <form onSubmit={handleSubmit} className="flex gap-2 px-10 py-6 text-xl">
+          <form className="flex gap-2 px-10 py-6 text-xl">
             <Input
               type="text"
               placeholder="Enter your license plate"
-              value={reportId}
-              onChange={(e) => setReportId(e.target.value)}
-              className="bg-white text-xl text-white placeholder:text-black"
+              value={licenseQuery}
+              onChange={(e) => setLicenseQuery(e.target.value)}
+              className="bg-white text-xl text-black placeholder:text-black"
             />
             <Button
-              type="submit"
+              type="button"
               className="bg-gray-900 border-gray-600 border-b-gray-500"
             >
               <ChevronRight className="w-5 h-5 text-white" />
@@ -126,12 +128,13 @@ export default function Home() {
           </div>
         </div>
       )}
+
       {/* Scrollable JSON report list */}
       <div className="w-full px-[5%] flex flex-col justify-start items-center">
         <h2 className="text-2xl font-bold text-[#A6192E] ">Recent Reports</h2>
-        {reports && reports.length > 0 ? (
+        {filteredReports && filteredReports.length > 0 ? (
           <div className="flex flex-col w-full text-black max-h-[50vh] overflow-y-auto w-[90%] md:w-1/2 bg-gray-50 rounded-xl p-4 pl-0 space-y-3">
-            {reports.map((report) => (
+            {filteredReports.map((report) => (
               <div
                 key={report.reportId}
                 className="border-l-4 border-[#A6192E] bg-gray-300  rounded-md shadow-sm"
@@ -144,11 +147,10 @@ export default function Home() {
               </div>
             ))}
           </div>
-          ) : (
+        ) : (
           <p className="text-gray-500 mt-6">No reports found.</p>
         )}
       </div>
-
     </div>
   );
 }
