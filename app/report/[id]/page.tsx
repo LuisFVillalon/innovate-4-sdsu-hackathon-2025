@@ -97,10 +97,10 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
               <div>
                 <h2 className="text-xl font-semibold text-[#000000] mb-2">Incident Details</h2>
                 <div className="bg-gray-50 p-4 rounded-lg space-y-2">
-                  <p className="text-black"><span className="font-medium">Type:</span> {report.incident}</p>
-                  <p className="text-black"><span className="font-medium">License Plate:</span> {report.licensePlate}</p>
-                  <p className="text-black"><span className="font-medium">Date & Time:</span> {formatDate(report.timestamp)}</p>
-                  <p className="text-black"><span className="font-medium">Location:</span> {report.location}</p>
+                  <p className="text-black"><span className="font-medium"><strong>Type:</strong></span> {report.incident}</p>
+                  <p className="text-black"><span className="font-medium"><strong>License Plate:</strong></span> {report.licensePlate}</p>
+                  <p className="text-black"><span className="font-medium"><strong>Date & Time:</strong></span> {formatDate(report.timestamp)}</p>
+                  <p className="text-black"><span className="font-medium"><strong>Location:</strong></span> {report.location}</p>
                 </div>
               </div>
             </div>
