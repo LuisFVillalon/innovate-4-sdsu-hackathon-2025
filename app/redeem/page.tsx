@@ -1,6 +1,9 @@
-"use client"
+'use client';
 
-import { useState } from "react"
+import styles from './page.module.css'
+import Link from "next/link";
+import { useState } from "react";
+import { ChevronRight } from "lucide-react";
 
 export default function RedeemPage() {
   const [token, setToken] = useState("")
@@ -24,58 +27,46 @@ export default function RedeemPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white font-sans">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-start py-8 px-4 sm:py-16 sm:px-8 bg-white relative">
-        {/* Logo placeholder in top-left */}
-        <div className="absolute top-8 left-8">
-          <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-            <span className="text-xs text-gray-600 font-medium">Logo</span>
-          </div>
-        </div>
+    <div className={styles.mainWrapper}>
+      <div className="text-xl text-[#000000] underline absolute top-4 right-4">
+        <Link href="/account">
+          Sign In
+        </Link>
+      </div>
 
-        {/* Main content - centered */}
-        <div className="w-full flex-1 flex items-center justify-center">
-          <div className="w-full max-w-md space-y-6">
-            <div className="space-y-4">
-              <label htmlFor="crash-token" className="block text-sm font-medium text-black">
-                Enter a crash token:
-              </label>
-              <form onSubmit={handleSubmit} className="flex items-center gap-2">
-                <input
-                  id="crash-token"
-                  type="text"
-                  value={token}
-                  onChange={(e) => setToken(e.target.value)}
-                  placeholder="XD-1234"
-                  className="flex-1 h-12 px-4 rounded-lg border border-gray-300 bg-white text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"
-                  disabled={isSubmitting}
-                />
-                <button
-                  type="submit"
-                  disabled={!token.trim() || isSubmitting}
-                  className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center hover:bg-gray-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-w-[48px] min-h-[48px]"
-                  aria-label="Submit token"
-                >
-                  <svg
-                    className="h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-              </form>
-            </div>
-          </div>
+      <div className='mx-[5%] flex flex-col gap-6 justify-center items-center'>
+        <div className={`${styles.fadeIn} text-center text-[#A6192E] text-8xl font-bold`}>
+          The Crash App
         </div>
-      </main>
+        <div className={`${styles.fadeIn} text-center text-2xl text-[#000000]`}>
+          <p>
+            Redeem your token.
+          </p>
+          <p>
+            Get paid.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-8 justify-center items-center">
+        <form onSubmit={handleSubmit} className='flex gap-2 px-10 py-6 text-xl flex mt-0'>
+          <input
+            type="text"
+            value={token}
+            onChange={(e) => setToken(e.target.value)}
+            placeholder="Enter your Crash Token"
+            className={`flex h-9 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-xl text-black shadow-sm shadow-black/5 transition-shadow placeholder-[#FFFFFF] focus-visible:border-ring focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/20 disabled:cursor-not-allowed disabled:opacity-50 ${styles.fadeInLeft}`}
+            disabled={isSubmitting}
+          />
+          <button
+            type="submit"
+            className={`bg-gray-900 border-gray-600 border-b-gray-500 px-4 py-2 rounded-lg ${styles.fadeInRight}`}
+            disabled={!token.trim() || isSubmitting}
+          >
+            <ChevronRight className="w-5 h-5 text-white" />
+          </button>
+        </form>
+      </div>
     </div>
   )
 }
